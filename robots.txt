@@ -1,0 +1,29 @@
+User-agent: *
+Allow: /
+
+# --- AI citation / search crawlers: explicitly allowed ---
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Google-Extended controls some AI-feature training separately from
+# regular Search indexing. Leaving it allowed keeps AI Overviews eligible.
+User-agent: Google-Extended
+Allow: /
+
+# --- Sitemap ---
+Sitemap: https://bestcateringphilippines.com/sitemap.xml

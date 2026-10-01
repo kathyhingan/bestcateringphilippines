@@ -1,0 +1,145 @@
+/* Inner-page additions: brand pages, occasion pages, location pages.
+   Loaded AFTER home.css. Reuses home.css variables and components
+   (.sect, .sechead, .pcards/.pcard, .stepgrid/.step, .grid8/.occ,
+   .gridloc/.loc, .jgrid/.jcard) so every page shares one visual system. */
+
+/* ---------- inner page hero: shorter than the homepage hero ---------- */
+.pagehero{
+  background:var(--black);color:var(--cream);position:relative;overflow:hidden;
+  padding:clamp(28px,5vh,60px) 0 clamp(32px,5.5vh,64px);
+}
+.pagehero .wrap{position:relative;z-index:2}
+.pagehero .shape{position:absolute;pointer-events:none}
+.pagehero .ring{width:min(40vh,380px);height:min(40vh,380px);border:12px solid var(--mag);border-radius:50%;right:-130px;top:-100px;opacity:.5}
+.crumb{
+  font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px;color:rgba(255,246,233,.6);
+}
+.crumb a{color:rgba(255,246,233,.85);text-decoration:none;border-bottom:2px solid transparent}
+.crumb a:hover{border-color:var(--mag-light)}
+.pagehero h1{
+  font-size:clamp(28px,4.4vw,58px);line-height:.98;max-width:24ch;
+}
+.pagehero h1 .mag{color:var(--mag-light);-webkit-text-stroke:2px var(--black)}
+.pagehero h1 .serif{font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:-.01em;color:var(--lime)}
+.pagehero .sub{
+  font-size:clamp(15px,1.25vw,18px);max-width:62ch;color:rgba(255,246,233,.86);
+  margin:clamp(14px,2vh,20px) 0 0;line-height:1.55;
+}
+.pagehero .ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:clamp(18px,2.6vh,28px)}
+.pagehero .facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(18px,2.6vh,26px)}
+.pagehero .facts span{
+  font-family:var(--ui);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(255,246,233,.08);border:2px solid rgba(255,246,233,.3);padding:8px 14px;
+}
+
+/* ---------- prose content block (real paragraphs, not cards) ---------- */
+.prose{max-width:74ch}
+.prose p{font-size:16.5px;line-height:1.7;margin:0 0 1.1em;color:#2A2A2E}
+.prose p:last-child{margin-bottom:0}
+.prose.on-dark p{color:rgba(255,246,233,.86)}
+.prose h3{font-size:clamp(20px,2.2vw,26px);margin:0 0 12px}
+.prose strong{font-weight:700}
+
+/* ---------- FAQ accordion (native <details>/<summary>, also FAQPage-schema-matched content) ---------- */
+.faqlist{display:flex;flex-direction:column;gap:1px;background:var(--black);border:var(--bord);box-shadow:var(--shadow)}
+.faqitem{background:var(--cream)}
+.faqitem summary{
+  list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:18px;
+  padding:24px clamp(20px,3vw,34px);-webkit-tap-highlight-color:transparent;
+}
+.faqitem summary::-webkit-details-marker{display:none}
+.faqitem summary::marker{content:""}
+.faqitem h3{
+  font-size:clamp(17px,1.8vw,21px);margin:0;text-transform:none;font-family:var(--body);
+  font-weight:700;letter-spacing:-.01em;color:var(--ink);flex:1;line-height:1.35;
+}
+.faq-icon{
+  flex:0 0 auto;width:30px;height:30px;border:2px solid var(--black);position:relative;
+  background:var(--cream);transition:background .15s,transform .2s;
+}
+.faq-icon::before,.faq-icon::after{
+  content:"";position:absolute;left:50%;top:50%;background:var(--black);
+  transform:translate(-50%,-50%);transition:transform .2s,background .15s;
+}
+.faq-icon::before{width:14px;height:3px}
+.faq-icon::after{width:3px;height:14px}
+.faqitem summary:hover .faq-icon{background:var(--lime)}
+.faqitem[open] summary .faq-icon{background:var(--black)}
+.faqitem[open] summary .faq-icon::before,.faqitem[open] summary .faq-icon::after{background:var(--lime)}
+.faqitem[open] summary .faq-icon::after{transform:translate(-50%,-50%) rotate(90deg);opacity:0}
+.faq-a{padding:0 clamp(20px,3vw,34px) 24px;margin-top:-6px}
+.faq-a p{font-size:15.5px;line-height:1.65;margin:0;color:#2A2A2E}
+.faqitem[open] summary{padding-bottom:14px}
+
+/* ---------- pricing / fact table ---------- */
+.pricetable{width:100%;border-collapse:collapse;border:var(--bord);background:#fff;font-size:14.5px}
+.pricetable caption{caption-side:top;text-align:left;font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px;color:#6B6B6E}
+.pricetable th,.pricetable td{border:2px solid var(--black);padding:12px 14px;text-align:left;vertical-align:top}
+.pricetable th{background:var(--black);color:var(--lime);font-family:var(--ui);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.pricetable td b{font-family:var(--disp);font-size:15px;text-transform:uppercase;letter-spacing:0}
+.pricetable-wrap{overflow-x:auto}
+
+/* ---------- numbered list (process/steps inline in prose) ---------- */
+.numlist{list-style:none;margin:0;padding:0;counter-reset:nl}
+.numlist li{
+  counter-increment:nl;position:relative;padding:6px 0 18px 42px;font-size:16px;line-height:1.6;color:#2A2A2E;
+}
+.numlist li::before{
+  content:counter(nl);position:absolute;left:0;top:4px;width:28px;height:28px;
+  background:var(--black);color:var(--lime);font-family:var(--disp);font-size:13px;
+  display:flex;align-items:center;justify-content:center;
+}
+.numlist b{color:var(--ink)}
+
+/* ---------- vendor grid (proposed application fields) ---------- */
+.fieldsgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.fieldcard{border:var(--bord);background:#fff;padding:18px 20px;box-shadow:5px 5px 0 var(--black)}
+.fieldcard .num{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--mag);text-transform:uppercase}
+.fieldcard h4{font-size:16px;margin:8px 0 6px;font-family:var(--body);font-weight:700;color:var(--ink)}
+.fieldcard p{font-size:13.5px;color:#3A3A3C;margin:0;line-height:1.5}
+
+/* ---------- inline occasion/location cross-link chips ---------- */
+.chiprow{display:flex;flex-wrap:wrap;gap:10px}
+.chip{
+  font-family:var(--ui);font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;color:var(--black);border:2px solid var(--black);padding:9px 16px;
+  transition:transform .14s,background .14s,color .14s;
+}
+.chip:hover{background:var(--black);color:var(--lime);transform:translate(-2px,-2px)}
+.chip.on-dark{color:var(--cream);border-color:rgba(255,246,233,.5)}
+.chip.on-dark:hover{background:var(--cream);color:var(--black)}
+
+/* ---------- small honesty/flag callout ---------- */
+.honest{
+  border:var(--bord);background:var(--lime);padding:18px 22px;font-size:14.5px;line-height:1.55;
+  box-shadow:5px 5px 0 var(--black);
+}
+.honest b{display:block;font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+
+/* ---------- type/age/venue breakdown grid (weddings by venue, birthdays by age, etc) ---------- */
+.typegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.typecard{border:var(--bord);background:#fff;box-shadow:6px 6px 0 var(--black);display:flex;flex-direction:column}
+.typecard .tc-head{padding:18px 20px 14px;border-bottom:2px solid var(--black)}
+.typecard .tc-tag{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mag)}
+.typecard h4{font-size:19px;margin:6px 0 0;font-family:var(--body);font-weight:700;letter-spacing:-.01em}
+.typecard .tc-body{padding:16px 20px 20px;flex:1}
+.typecard .tc-body p{font-size:14.5px;line-height:1.6;color:#2A2A2E;margin:0 0 10px}
+.typecard .tc-body p:last-child{margin-bottom:0}
+.typecard .tc-watch{margin-top:12px;padding-top:12px;border-top:2px dashed #ccc;font-size:13.5px;line-height:1.5;color:#3A3A3C}
+.typecard .tc-watch b{color:var(--ink);font-weight:700}
+
+/* ---------- local insight block (hyperlocal logistics knowledge, on location pages) ---------- */
+.localinsight{border:var(--bord);background:#fff;box-shadow:var(--shadow)}
+.localinsight .li-head{background:var(--black);color:var(--cream);padding:16px 24px}
+.localinsight .li-head span{font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
+.localinsight .li-head h4{font-size:clamp(18px,2vw,22px);margin:6px 0 0;font-family:var(--body);font-weight:700}
+.localinsight .li-body{padding:22px 24px}
+.localinsight .li-body p{font-size:15.5px;line-height:1.65;color:#2A2A2E;margin:0 0 14px}
+.localinsight .li-body p:last-child{margin-bottom:0}
+.localinsight .li-body strong{color:var(--ink)}
+
+@media(max-width:760px){
+  .pagehero{padding:22px 0 30px}
+  .fcols{grid-template-columns:1fr 1fr}
+}

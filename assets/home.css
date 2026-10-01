@@ -1,0 +1,446 @@
+/* Best Catering Philippines - homepage styles
+   Bold direction. Split into chunks for maintainability. */
+
+:root{
+  --ink:#0B0B0C; --paper:#FFF6E9;
+  --mag:#D5006A; --mag-light:#FF2D87; --lime:#D8F34A; --cobalt:#1B4DFF;
+  --coral:#FF5A2E; --lav:#C9B6FF; --cream:#FFF6E9; --teal:#00C2A8;
+  --black:#0B0B0C;
+  --disp:"Archivo Black",Impact,sans-serif;
+  --serif:"DM Serif Display",Georgia,serif;
+  --ui:"Space Grotesk",system-ui,sans-serif;
+  --body:"Archivo",system-ui,sans-serif;
+  --bord:3px solid var(--black);
+  --shadow:8px 8px 0 var(--black);
+  --shadow-sm:5px 5px 0 var(--black);
+  --chrome-h:118px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--cream);color:var(--ink);
+  font-family:var(--body);font-size:18px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+h1,h2,h3{font-family:var(--disp);font-weight:400;margin:0;line-height:.92;letter-spacing:-.02em;text-transform:uppercase}
+p{margin:0 0 1em}
+a{color:inherit}
+img{display:block;max-width:100%}
+.wrap{max-width:1220px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+section{overflow-x:clip}
+.label{font-family:var(--ui);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.note{font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-top:16px;opacity:.85}
+
+/* ---------- announcement ticker ---------- */
+.ticker{background:var(--mag);color:var(--cream);border-bottom:var(--bord);padding:9px 0;overflow:hidden;white-space:nowrap}
+.ticker .row{display:inline-flex;gap:44px;animation:slide 26s linear infinite;font-family:var(--ui);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.ticker b{background:var(--lime);color:var(--black);padding:2px 9px}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.ticker .row{animation:none}}
+
+/* ---------- navigation: single line on desktop, hamburger overlay on mobile ---------- */
+header.nav{position:sticky;top:0;z-index:70;background:var(--cream);border-bottom:var(--bord)}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:74px}
+.brand{display:flex;align-items:baseline;gap:9px;text-decoration:none;flex:0 0 auto}
+.brand .b1{font-family:var(--disp);font-size:21px;letter-spacing:-.03em;text-transform:uppercase;white-space:nowrap}
+.brand .b2{font-family:var(--ui);font-size:8.5px;font-weight:700;letter-spacing:.16em;background:var(--black);color:var(--lime);padding:3px 7px;white-space:nowrap}
+.navlinks{display:flex;align-items:center;gap:clamp(10px,1.5vw,22px);flex-wrap:nowrap}
+.navlinks a{
+  font-family:var(--ui);font-size:clamp(9.5px,0.82vw,11.5px);font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;text-decoration:none;white-space:nowrap;
+  border-bottom:2px solid transparent;padding-bottom:2px;
+}
+.navlinks a:hover{border-color:var(--mag)}
+.navcta{display:flex;gap:10px;align-items:center;flex:0 0 auto}
+.navcta .btn{padding:11px 16px;font-size:clamp(9.5px,0.8vw,11px);white-space:nowrap}
+
+/* Hamburger toggle: hidden on desktop, shown only under the mobile breakpoint below */
+.burger{
+  display:none;width:46px;height:46px;border:var(--bord);background:var(--cream);
+  cursor:pointer;padding:0;position:relative;flex:0 0 auto;box-shadow:var(--shadow-sm);
+  transition:transform .14s,box-shadow .14s;
+}
+.burger:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 var(--black)}
+.burger span{
+  position:absolute;left:11px;right:11px;height:3px;background:var(--black);
+  transition:transform .25s,opacity .2s,top .25s;
+}
+.burger span:nth-child(1){top:15px}
+.burger span:nth-child(2){top:22px}
+.burger span:nth-child(3){top:29px}
+.burger[aria-expanded="true"] span:nth-child(1){top:22px;transform:rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){top:22px;transform:rotate(-45deg)}
+
+/* Mobile menu panel: an OVERLAY (position:fixed), never part of document flow,
+   so opening it cannot push the hero or any section below down the page. */
+.mobile-panel{
+  display:none;position:fixed;left:0;right:0;top:var(--mobile-nav-h,64px);
+  bottom:0;background:var(--black);color:var(--cream);z-index:65;
+  overflow-y:auto;padding:26px clamp(20px,6vw,40px) 40px;
+  transform:translateY(-8px);opacity:0;pointer-events:none;
+  transition:opacity .22s,transform .22s;
+}
+.mobile-panel.open{transform:translateY(0);opacity:1;pointer-events:auto}
+.mobile-panel nav{display:flex;flex-direction:column;gap:2px;margin-bottom:26px}
+.mobile-panel nav a{
+  font-family:var(--disp);font-size:clamp(26px,8vw,38px);text-transform:uppercase;
+  color:var(--cream);text-decoration:none;padding:14px 0;border-bottom:2px solid rgba(255,246,233,.16);
+}
+.mobile-panel nav a:active{color:var(--mag-light)}
+.mobile-panel .mob-ctas{display:flex;flex-direction:column;gap:12px}
+.mobile-panel .btn{width:100%;justify-content:center;font-size:12px;padding:17px 24px}
+body.menu-open{overflow:hidden}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:9px;font-family:var(--ui);font-size:12px;
+  font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
+  padding:14px 24px;border:var(--bord);background:var(--black);color:var(--cream);
+  cursor:pointer;transition:transform .14s,box-shadow .14s,background .14s;
+  box-shadow:var(--shadow-sm);
+}
+.btn:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--black);background:var(--mag);color:var(--cream)}
+.btn.on-mag{background:var(--lime);color:var(--black)}
+.btn.on-mag:hover{background:var(--black);color:var(--lime)}
+.btn.on-lime{background:var(--black);color:var(--lime)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:none}
+.btn.ghost:hover{background:var(--black);color:var(--cream)}
+.btn.big{font-size:13px;padding:17px 30px}
+.btn:disabled{opacity:.38;cursor:not-allowed;transform:none;box-shadow:var(--shadow-sm);background:var(--black);color:var(--cream)}
+
+/* ---------- hero: sized to fit above the fold ---------- */
+.hero{
+  background:var(--black);color:var(--cream);position:relative;overflow:hidden;
+  min-height:calc(100svh - var(--chrome-h));
+  display:flex;align-items:center;
+  padding:clamp(24px,3.4vh,52px) 0 clamp(28px,3.6vh,56px);
+}
+.hero .shape{position:absolute;pointer-events:none}
+.hero .ring{width:min(46vh,440px);height:min(46vh,440px);border:12px solid var(--mag);border-radius:50%;right:-140px;top:-110px}
+.hero .blob{width:min(34vh,320px);height:min(34vh,320px);background:var(--cobalt);right:110px;bottom:-180px;transform:rotate(18deg)}
+.hero .tri{width:0;height:0;border-left:104px solid transparent;border-right:104px solid transparent;border-bottom:172px solid var(--lime);left:-70px;bottom:-56px;opacity:.92}
+.hero .wrap{position:relative;z-index:2;width:100%}
+.kicker{
+  display:inline-flex;align-items:center;gap:12px;background:var(--lime);color:var(--black);
+  border:var(--bord);padding:7px 14px;font-family:var(--ui);font-size:10.5px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;transform:rotate(-1.2deg);box-shadow:var(--shadow-sm);
+}
+.hero h1{
+  font-size:clamp(30px,4.7vw,66px);line-height:.94;margin:clamp(14px,1.9vh,24px) 0 0;
+  max-width:19ch;
+}
+.hero h1 .mag{color:var(--mag-light);-webkit-text-stroke:2px var(--black)}
+.hero h1 .out{color:transparent;-webkit-text-stroke:2px var(--cream)}
+.hero h1 .serif{font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:-.01em;color:var(--lime)}
+.hero .sub{
+  font-size:clamp(15px,1.35vw,19px);max-width:58ch;color:rgba(255,246,233,.86);
+  margin:clamp(12px,1.7vh,20px) 0 clamp(16px,2.2vh,26px);line-height:1.5;
+}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.hero .btn.big{padding:15px 28px;font-size:clamp(11px,1vw,13px)}
+.hero .sticker{
+  position:absolute;right:clamp(20px,5vw,80px);top:clamp(40px,7vh,110px);
+  width:clamp(120px,13vh,168px);height:clamp(120px,13vh,168px);border-radius:50%;
+  background:var(--lime);border:var(--bord);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;transform:rotate(9deg);
+  z-index:3;box-shadow:var(--shadow);
+}
+.hero .sticker .n{font-family:var(--disp);font-size:clamp(22px,3vh,32px);line-height:1;text-transform:uppercase}
+.hero .sticker .t{font-family:var(--ui);font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:0 16px;margin-top:4px}
+.hero .facts{
+  display:flex;flex-wrap:wrap;margin-top:clamp(20px,3vh,38px);
+  border:var(--bord);background:var(--cream);color:var(--black);box-shadow:var(--shadow);
+}
+.hero .facts div{flex:1 1 150px;padding:clamp(11px,1.5vh,17px) 20px;border-right:var(--bord)}
+.hero .facts div:last-child{border-right:0}
+.hero .facts .k{font-family:var(--disp);font-size:clamp(19px,2.3vw,28px);text-transform:uppercase;line-height:1}
+.hero .facts .v{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;margin-top:5px}
+@media(max-width:1000px){.hero .sticker{display:none}}
+@media(max-width:760px){
+  .hero{min-height:0}
+  .hero .facts div{flex:1 1 45%;border-bottom:var(--bord)}
+  .hero .facts div:nth-child(2n){border-right:0}
+  .hero .facts div:nth-last-child(-n+2){border-bottom:0}
+}
+
+/* ---------- generic section scaffold ---------- */
+.sect{padding:clamp(48px,6vw,92px) 0;border-bottom:var(--bord)}
+.sechead{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:clamp(26px,3.4vw,46px)}
+.sechead h2{font-size:clamp(30px,5.4vw,72px);line-height:.9}
+.sechead .tag{font-family:var(--ui);font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border:var(--bord);padding:7px 13px;background:var(--lime);white-space:nowrap}
+.sub{font-size:clamp(16px,1.3vw,19px);max-width:58ch;margin-top:14px;line-height:1.6}
+
+/* ---------- occasion tiles: container-relative type so words always fit ---------- */
+.grid8{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:20px}
+.occ{
+  display:block;text-decoration:none;color:var(--black);border:var(--bord);background:#fff;
+  box-shadow:var(--shadow);transition:transform .16s,box-shadow .16s;
+  container-type:inline-size;
+}
+/* Same hover language as the carousel slides: press toward the shadow, shadow shrinks. */
+.occ:hover{transform:translate(4px,4px);box-shadow:3px 3px 0 var(--black)}
+.occ .band{
+  height:clamp(104px,11vw,144px);display:flex;align-items:center;justify-content:center;
+  border-bottom:var(--bord);position:relative;overflow:hidden;padding:0 12px;
+}
+/* Sized relative to the CARD (cqw), so the longest word always fits on one line
+   without ever breaking mid-word. Two-word labels still wrap at the space. */
+.occ .glyph{
+  font-family:var(--disp);text-transform:uppercase;line-height:1;color:var(--black);
+  font-size:clamp(13px,10.4cqw,44px);text-align:center;
+  overflow-wrap:normal;word-break:normal;hyphens:none;max-width:100%;
+}
+.occ .band .dot{position:absolute;border-radius:50%;border:var(--bord);pointer-events:none}
+.occ .txt{padding:18px 18px 22px}
+.occ .txt h3{font-size:clamp(19px,7.2cqw,29px);margin-bottom:8px;overflow-wrap:normal}
+.occ .txt p{font-size:clamp(13px,3.7cqw,14.5px);margin:0;color:#3A3A3C;line-height:1.5}
+.occ .meta{font-family:var(--ui);font-size:clamp(8.5px,2.6cqw,10px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-top:13px;padding-top:11px;border-top:2px dashed rgba(0,0,0,.22)}
+
+/* ---------- events carousel ---------- */
+.carousel-sec{background:var(--black);color:var(--cream)}
+.carousel-sec .sechead .tag{background:var(--mag);color:var(--cream)}
+.carwrap{position:relative}
+.rail{
+  display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;padding:6px 6px 26px;margin:0 -6px;
+  scrollbar-width:none;
+}
+.rail::-webkit-scrollbar{display:none}
+.slide{
+  flex:0 0 clamp(264px,32vw,408px);scroll-snap-align:start;
+  border:var(--bord);background:var(--cream);color:var(--black);
+  box-shadow:7px 7px 0 var(--mag);overflow:hidden;position:relative;
+  container-type:inline-size;transition:transform .16s,box-shadow .16s;
+}
+/* Same hover language as the occasion tiles: press toward the shadow, shadow shrinks. */
+.slide:hover{transform:translate(4px,4px);box-shadow:3px 3px 0 var(--mag)}
+.slide .pic{
+  position:relative;aspect-ratio:4/3;border-bottom:var(--bord);
+  background:linear-gradient(150deg,var(--c1,#D5006A),var(--c2,#0B0B0C));
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.slide .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
+.slide .pic .ph{
+  font-family:var(--disp);font-size:clamp(19px,4.6cqw,32px);text-transform:uppercase;
+  color:rgba(255,255,255,.92);text-align:center;padding:0 18px;line-height:.95;
+  text-shadow:0 2px 0 rgba(0,0,0,.35);z-index:1;
+}
+.slide .cap{padding:16px 18px 20px}
+.slide .cap .k{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mag)}
+.slide .cap h3{font-size:clamp(19px,2.3vw,26px);margin:7px 0 6px}
+.slide .cap p{font-size:14px;margin:0;color:#3A3A3C;line-height:1.5}
+.railnav{display:flex;gap:10px;align-items:center;margin-top:6px}
+.rbtn{
+  width:50px;height:50px;border:var(--bord);background:var(--cream);color:var(--black);
+  font-family:var(--disp);font-size:19px;cursor:pointer;display:grid;place-items:center;
+  box-shadow:var(--shadow-sm);transition:transform .14s,box-shadow .14s,background .14s;
+}
+.rbtn:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--black);background:var(--lime)}
+.rbtn:disabled{opacity:.3;cursor:not-allowed;transform:none}
+.raildots{display:flex;gap:8px;margin-left:auto}
+.raildots button{width:13px;height:13px;border:var(--bord);background:transparent;cursor:pointer;padding:0}
+.raildots button.on{background:var(--lime)}
+
+/* ---------- quiz, inline ---------- */
+.quizzone{background:var(--black);color:var(--cream);position:relative;overflow:hidden}
+.quizzone .shape{position:absolute;width:380px;height:380px;border:11px solid var(--cobalt);border-radius:50%;left:-150px;bottom:-190px;pointer-events:none}
+.quizzone .wrap{position:relative;z-index:2}
+.quizzone .sechead h2 .serif{font-family:var(--serif);font-style:italic;text-transform:none;color:var(--mag-light)}
+.quizzone .sechead .tag{background:var(--mag);color:var(--cream)}
+.qcard{border:var(--bord);background:var(--cream);color:var(--black);box-shadow:10px 10px 0 var(--mag);max-width:860px;margin:0 auto}
+.qhead{background:var(--black);color:var(--cream);padding:15px 22px;display:flex;justify-content:space-between;align-items:center;gap:14px;font-family:var(--ui);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.qbody{padding:clamp(20px,3vw,38px)}
+.qbar{height:13px;border:var(--bord);background:#fff;margin-bottom:22px}
+.qbar i{display:block;height:100%;width:16.6%;background:var(--mag);transition:width .35s cubic-bezier(.4,0,.2,1)}
+.qcard h3{font-size:clamp(22px,3.2vw,38px);margin-bottom:8px}
+.qcard .qsub{font-family:var(--body);font-size:clamp(13px,1.15vw,15px);color:#3A3A3C;margin-bottom:22px;line-height:1.5}
+.qopts{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:12px;margin-bottom:24px}
+.qopt{
+  border:var(--bord);padding:14px 16px;background:#fff;cursor:pointer;font:inherit;
+  text-align:left;color:inherit;transition:transform .14s,background .14s;
+}
+.qopt:hover{transform:translate(-2px,-2px);background:var(--lav)}
+.qopt[aria-pressed="true"]{background:var(--lime)}
+.qopt .t{font-family:var(--disp);font-size:clamp(15px,1.5vw,19px);text-transform:uppercase;line-height:1.05;display:block}
+.qopt .d{font-size:clamp(12.5px,1vw,13.5px);color:#3A3A3C;margin-top:5px;display:block}
+.qcontrols{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.qhint{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6B6B6E;margin-left:auto}
+.qdate{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;margin-bottom:22px}
+.qdate .field{display:flex;flex-direction:column;gap:7px}
+.qdate label{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.qdate select{font-family:var(--body);font-size:15px;background:#fff;border:var(--bord);padding:12px;min-width:150px;color:var(--black)}
+.qdate select:focus{outline:0;background:var(--lav)}
+.qchip{
+  font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  background:#fff;border:var(--bord);padding:12px 16px;cursor:pointer;color:var(--black);
+}
+.qchip[aria-pressed="true"]{background:var(--lime)}
+
+/* result */
+.qresult{animation:rise .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.pline{background:var(--black);color:var(--cream);padding:clamp(22px,3vw,36px);border:var(--bord)}
+.pline .kick{font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--lime);margin-bottom:12px}
+.pline h3{font-size:clamp(22px,3.2vw,40px);color:var(--cream);line-height:.98}
+.pline .recap{display:flex;gap:22px;flex-wrap:wrap;margin-top:20px;padding-top:18px;border-top:2px dashed rgba(255,246,233,.3)}
+.pline .recap div{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,246,233,.62)}
+.pline .recap b{display:block;font-family:var(--disp);font-size:clamp(14px,1.3vw,17px);letter-spacing:0;text-transform:uppercase;color:var(--cream);margin-top:4px}
+.route{background:#fff;padding:clamp(20px,3vw,34px);border:var(--bord);border-top:0}
+.route .badge{display:inline-block;font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:var(--lime);border:var(--bord);padding:6px 12px;margin-bottom:14px}
+.route .badge.sub{background:var(--lav)}
+.route h3{font-size:clamp(20px,2.6vw,30px);margin-bottom:10px}
+.route p{color:#3A3A3C;max-width:62ch;font-size:15.5px}
+.route ul{margin:0 0 20px;padding:0;list-style:none}
+.route li{padding:9px 0 9px 24px;position:relative;color:#3A3A3C;font-size:15px;border-bottom:2px dashed rgba(0,0,0,.14)}
+.route li::before{content:"";position:absolute;left:0;top:16px;width:8px;height:8px;background:var(--mag)}
+.route li b{color:var(--ink);font-weight:700}
+.qrestart{font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:none;border:0;cursor:pointer;text-decoration:underline;text-underline-offset:4px;color:#3A3A3C;padding:0}
+.qrestart:hover{color:var(--mag)}
+
+/* ---------- promise ---------- */
+.prom{background:var(--lime);color:var(--black)}
+.prom .sechead .tag{background:var(--black);color:var(--lime)}
+.pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--black);border:var(--bord);box-shadow:var(--shadow)}
+.pcard{background:var(--cream);padding:30px 26px;position:relative}
+.pcard .n{font-family:var(--disp);font-size:clamp(58px,7vw,84px);line-height:.8;color:var(--mag);-webkit-text-stroke:2px var(--black)}
+.pcard h3{font-size:clamp(21px,2.4vw,27px);margin:13px 0 10px;line-height:1}
+.pcard p{font-size:15.5px;margin:0;line-height:1.6;color:#26262A}
+.pcard .bond{position:absolute;right:20px;top:24px;font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;background:var(--black);color:var(--lime);padding:5px 10px;transform:rotate(4deg)}
+
+/* ---------- how it works ---------- */
+.steps{background:var(--cobalt);color:var(--cream)}
+.steps .sechead .tag{background:var(--cream);color:var(--black)}
+.stepgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(246px,1fr));gap:20px}
+.step{border:var(--bord);background:var(--black);padding:26px 22px;box-shadow:7px 7px 0 var(--lime);display:flex;flex-direction:column}
+.step .n{font-family:var(--disp);font-size:clamp(48px,5.4vw,62px);line-height:.8;color:var(--lime);-webkit-text-stroke:2px var(--cream)}
+.step h3{font-size:clamp(20px,2.3vw,26px);margin:13px 0 10px;line-height:1.15;color:var(--cream);min-height:2.3em;display:flex;align-items:flex-end}
+.step p{font-size:15px;margin:0;line-height:1.6;color:rgba(255,246,233,.85)}
+
+/* ---------- locations ---------- */
+.gridloc{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:16px}
+.loc{
+  display:block;text-decoration:none;border:var(--bord);background:var(--black);color:var(--cream);
+  padding:20px 18px;box-shadow:6px 6px 0 rgba(255,246,233,.9);transition:transform .16s;
+  container-type:inline-size;
+}
+.loc:hover{transform:rotate(-1.2deg) translateY(-3px)}
+.loc .big{font-family:var(--disp);font-size:clamp(14px,12cqw,28px);text-transform:uppercase;line-height:.95;overflow-wrap:normal}
+.loc .sm{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;margin-top:9px;opacity:.8}
+
+/* ---------- journal ---------- */
+.jgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:20px}
+.jcard{display:block;text-decoration:none;color:var(--black);border:var(--bord);background:#fff;box-shadow:var(--shadow);transition:transform .16s,box-shadow .16s}
+.jcard:hover{transform:translate(4px,4px);box-shadow:3px 3px 0 var(--black)}
+.jcard .pic{height:118px;border-bottom:var(--bord);display:flex;align-items:center;justify-content:center;font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;text-align:center;padding:0 12px}
+.jcard .cb{padding:20px}
+.jcard .cb .cat{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.jcard h3{font-size:clamp(19px,2.1vw,24px);margin:9px 0 8px;line-height:1.02}
+.jcard p{font-size:14px;margin:0;color:#3A3A3C;line-height:1.55}
+
+/* ---------- request a quote ---------- */
+.quote{background:var(--mag);color:var(--cream)}
+.quote .sechead .tag{background:var(--cream);color:var(--black)}
+.quote h2 .serif{font-family:var(--serif);font-style:italic;text-transform:none;color:var(--lime)}
+.qwrap{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(26px,4vw,58px);align-items:start}
+.formbox{border:var(--bord);background:var(--cream);color:var(--black);padding:clamp(20px,3vw,36px);box-shadow:10px 10px 0 var(--black)}
+.fieldrow{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:15px}
+.field label{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.field input,.field select{font-family:var(--body);font-size:15.5px;background:#fff;border:var(--bord);padding:12px;color:var(--black);width:100%}
+.field input:focus,.field select:focus{outline:0;background:var(--lav)}
+.quotefacts{list-style:none;margin:24px 0 0;padding:0}
+.quotefacts li{display:flex;gap:13px;align-items:baseline;padding:12px 0;border-bottom:2px dashed rgba(255,255,255,.4);font-family:var(--ui);font-size:12.5px;font-weight:600}
+.quotefacts li b{font-family:var(--disp);font-size:clamp(17px,1.8vw,21px);letter-spacing:0;text-transform:uppercase;min-width:70px}
+
+/* ---------- footer ---------- */
+footer{background:var(--black);color:var(--cream);padding:clamp(40px,5vw,68px) 0 24px}
+footer .big{font-family:var(--disp);font-size:clamp(28px,5.6vw,72px);text-transform:uppercase;line-height:.9;margin-bottom:30px}
+footer .big .mag{color:var(--mag-light)}
+footer .big .out{color:transparent;-webkit-text-stroke:2px var(--cream)}
+.fcols{display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:26px;padding-top:28px;border-top:3px solid rgba(255,246,233,.6)}
+.fcols h4{font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--lime);margin:0 0 13px}
+.fcols a{display:block;text-decoration:none;font-family:var(--ui);font-size:12.5px;font-weight:600;color:rgba(255,246,233,.82);margin-bottom:9px}
+.fcols a:hover{color:var(--mag-light)}
+.fcols p{color:rgba(255,246,233,.7);font-size:14.5px;max-width:34ch}
+.flegal{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:34px;padding-top:18px;border-top:2px dashed rgba(255,246,233,.35);font-family:var(--ui);font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,246,233,.6)}
+
+/* ---------- responsive ---------- */
+@media(max-width:1080px){
+  .navlinks{gap:12px}
+  .navcta .btn{padding:10px 13px}
+}
+/* keep the nav on ONE line from 821px up: drop the secondary CTA before it can overflow */
+@media(max-width:1000px){
+  .navcta .btn.ghost{display:none}
+  .navcta .btn{padding:11px 16px}
+  .navlinks{gap:clamp(8px,1.1vw,14px)}
+}
+@media(max-width:900px){
+  .qwrap{grid-template-columns:1fr}
+  .fcols{grid-template-columns:1fr 1fr}
+}
+/* Mobile: hamburger takes over navigation entirely. The nav bar height stays
+   fixed and small, so the hero below it is never pushed down when the menu opens
+   (the panel is position:fixed, not part of document flow). */
+@media(max-width:860px){
+  .navlinks{display:none}
+  .navcta{display:none}
+  .burger{display:block}
+  .mobile-panel{display:block}
+  .brand .b1{font-size:18px}
+  .brand .b2{font-size:8px;padding:3px 6px}
+  header.nav .wrap{min-height:64px}
+}
+@media(max-width:760px){
+  .fieldrow{grid-template-columns:1fr}
+  .sechead h2{font-size:clamp(27px,8.6vw,46px)}
+  .gridloc,.stepgrid,.jgrid,.pcards{grid-template-columns:1fr}
+  .gridloc{grid-template-columns:1fr 1fr}
+  .rail{gap:14px}
+  .slide{flex:0 0 clamp(230px,78vw,330px);box-shadow:5px 5px 0 var(--mag)}
+  /* Occasion grid becomes a horizontal scroll rail, same pattern as the events
+     carousel right below it, instead of stacking all 8 cards full-width. */
+  .grid8{
+    display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;padding:6px 6px 10px;margin:0 -6px -10px;
+    scrollbar-width:none;
+  }
+  .grid8::-webkit-scrollbar{display:none}
+  .grid8 .occ{flex:0 0 clamp(200px,68vw,260px);scroll-snap-align:start}
+  .quotefacts li{flex-wrap:wrap;gap:7px}
+  .quotefacts li b{min-width:0}
+  .fcols{grid-template-columns:1fr 1fr;gap:20px}
+  footer .big{font-size:clamp(24px,9vw,40px)}
+  .raildots{display:none}
+}
+@media(max-width:520px){
+  .gridloc{grid-template-columns:1fr}
+  .fcols{grid-template-columns:1fr}
+  .hero .facts div{flex:1 1 100%;border-right:0}
+  .hero .facts div:nth-last-child(-n+2){border-bottom:var(--bord)}
+  .hero .facts div:last-child{border-bottom:0}
+}
+/* Short phones (iPhone SE and similar): the nav bar is a fixed 64px now that
+   it is a hamburger, so this tier only needs to compact the HERO itself. */
+@media(max-width:860px) and (max-height:760px){
+  .hero{padding:16px 0 20px}
+  .kicker{font-size:9.5px;padding:5px 10px}
+  .hero h1{margin-top:10px;font-size:clamp(25px,7.4vw,34px)}
+  .hero .sub{font-size:13.5px;margin:9px 0 14px;line-height:1.45}
+  .hero .btn.big{padding:12px 20px;font-size:11px}
+  .hero .facts{margin-top:14px}
+  .hero .facts div{padding:9px 14px}
+  .hero .facts .k{font-size:17px}
+  .hero .facts .v{font-size:8.5px}
+}
+/* Very short screens (320x568 and similar): one more compaction tier. */
+@media(max-width:860px) and (max-height:620px){
+  .hero{padding:12px 0 14px}
+  .hero h1{margin-top:6px;font-size:clamp(23px,7vw,30px)}
+  .hero .sub{font-size:12.5px;margin:7px 0 11px;line-height:1.4}
+  .hero .btn.big{padding:10px 17px;font-size:10.5px}
+}
+
+
+

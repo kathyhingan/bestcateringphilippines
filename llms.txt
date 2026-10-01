@@ -1,0 +1,19 @@
+# Best Catering Philippines
+
+> We find, vet, and manage the right caterer for weddings, debuts, christenings, and milestone celebrations across the Philippines. One clear quote, one point of contact, one guarantee.
+
+## Core pages
+
+- [Homepage](https://bestcateringphilippines.com/): overview, guarantee, how it works
+- [Our Promise](https://bestcateringphilippines.com/our-promise): the three-part guarantee, stated in full
+- [Occasions](https://bestcateringphilippines.com/occasions): weddings, debuts, christenings, birthdays, graduations, corporate events, Christmas, New Year
+- [Locations](https://bestcateringphilippines.com/locations): Metro Manila, Calabarzon, Palawan, Cebu, Baguio, La Union, Ilocos, Clark, Subic, Boracay
+- [Journal](https://bestcateringphilippines.com/journal): local planning guides by city and occasion
+- [Vendor Application](https://bestcateringphilippines.com/vendor-application): for catering businesses joining our vetted bench (not for customers)
+
+## Key facts
+
+- Managed bookings start at 50 to 100+ guests and 150,000 pesos
+- Quotes are returned within 24 hours
+- No public pricing is shown; every booking is a custom quote
+- The fulfilling caterer is never publicly named (BCP manages the relationship end to end)
