@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  var ENDPOINT_URL = 'PASTE_APPS_SCRIPT_WEB_APP_URL_HERE';
+  var ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbxnO-sSHIiuORB328XKVdWvQKKE0h7gquuEhJ-eyiUOL8bs5RtftusnB6qlNUPdbZTK/exec';
 
   function post(payload, btn, successMsg) {
     if (!ENDPOINT_URL || ENDPOINT_URL.indexOf('http') !== 0) {
