@@ -308,6 +308,12 @@
     elLabel.textContent = '';
     elFill.style.width = '100%';
 
+    // expose quiz answers for the result form submission (forms.js reads this)
+    window.bcpQuizAnswers = {
+      occasion: answers.occasion, vibe: answers.vibe, guests: answers.guests,
+      location: answers.location, date: answers.date, budget: answers.budget
+    };
+
     var recap = [
       ['Occasion', answers.occasion], ['Vibe', answers.vibe], ['Guests', answers.guests],
       ['Location', answers.location], ['Date', answers.date], ['Budget band', answers.budget]
@@ -326,14 +332,34 @@
         '<li><b>You get one quote within 24 hours.</b> One clear price, nothing hidden.</li>' +
         '<li><b>We stay accountable.</b> A backup vendor on call, an on-site coordinator, and a pre-event confirmation before your date.</li>' +
         '</ul>' +
-        '<a class="btn on-mag" href="#quote">Continue to Request a Quote</a>';
+        '<form class="formbox qform-result" id="qform-result" onsubmit="return false">' +
+        '<p class="qf-head">Leave your details and we take it from here. One clear quote within 24 hours.</p>' +
+        '<div class="fieldrow">' +
+        '<div class="field"><label for="qr-name">Full name</label><input id="qr-name" type="text" required></div>' +
+        '</div>' +
+        '<div class="fieldrow">' +
+        '<div class="field"><label for="qr-email">Email address</label><input id="qr-email" type="email" required></div>' +
+        '<div class="field"><label for="qr-phone">Mobile number</label><input id="qr-phone" type="tel" placeholder="09xx XXX XXXX" required></div>' +
+        '</div>' +
+        '<button class="btn on-mag" type="submit">Send my enquiry</button>' +
+        '</form>';
     } else {
       body =
         '<span class="badge sub">A smaller celebration</span>' +
         '<h3>We want to be straight with you.</h3>' +
         '<p>Based on what you have told us, your celebration sits below the scale we manage directly. Our full service covers guest counts of 50 to 100+ and budgets of 150,000 pesos and up, with a flat 50,000 peso coordination fee.</p>' +
         '<p>That does not mean we cannot help. Send us your details and we will point you to catering options that genuinely fit your budget. Be aware the guarantee above does not apply at this scale, and we will not pretend otherwise.</p>' +
-        '<a class="btn on-mag" href="#quote">Send my details</a>';
+        '<form class="formbox qform-result" id="qform-result" onsubmit="return false">' +
+        '<p class="qf-head">Leave your details and we will point you to catering options that genuinely fit your budget.</p>' +
+        '<div class="fieldrow">' +
+        '<div class="field"><label for="qr-name">Full name</label><input id="qr-name" type="text" required></div>' +
+        '</div>' +
+        '<div class="fieldrow">' +
+        '<div class="field"><label for="qr-email">Email address</label><input id="qr-email" type="email" required></div>' +
+        '<div class="field"><label for="qr-phone">Mobile number</label><input id="qr-phone" type="tel" placeholder="09xx XXX XXXX" required></div>' +
+        '</div>' +
+        '<button class="btn on-mag" type="submit">Send my details</button>' +
+        '</form>';
     }
 
     elContent.innerHTML =

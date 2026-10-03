@@ -1,6 +1,8 @@
 /* Best Catering Philippines - form submission
-   Posts the quote form and vendor application form to the Apps Script web app.
-   Set ENDPOINT_URL once after deploying the Apps Script web app (see apps-script/Code.gs). */
+   1. Homepage quote form (bottom of page): name, email, phone, occasion, location, guests, date
+   2. Quiz result form: name, email, phone + the quiz answers from window.bcpQuizAnswers
+   3. Vendor application form
+   Posts everything to the Apps Script web app (see apps-script/Code.gs). */
 
 (function () {
   'use strict';
@@ -36,8 +38,9 @@
     });
   }
 
-  /* Quote form (homepage): name, contact, occasion, location, guests, date */
   document.addEventListener('DOMContentLoaded', function () {
+
+    /* 1. Quote form (bottom of homepage) */
     var quoteForm = document.querySelector('#quote form.formbox');
     if (quoteForm) {
       var qbtn = quoteForm.querySelector('button[type="submit"]');
@@ -51,7 +54,8 @@
           type: 'lead',
           source: 'Homepage quote form',
           name: val('qf-name'),
-          contact: val('qf-contact'),
+          email: val('qf-email'),
+          phone: val('qf-phone'),
           occasion: val('qf-occ'),
           location: val('qf-loc'),
           guests: val('qf-guests'),
@@ -60,7 +64,34 @@
       });
     }
 
-    /* Vendor application form: company, contact person, phone, email, cities, capacity, occasion types, years */
+    /* 2. Quiz result form: quiz answers (window.bcpQuizAnswers) + contact details.
+       The form is injected by home.js only after the quiz completes, so bind via
+       document-level delegation (submit events bubble) instead of at load time. */
+    document.addEventListener('submit', function (ev) {
+      var form = ev.target;
+      if (!form || form.id !== 'qform-result') return;
+      ev.preventDefault();
+      var qa = window.bcpQuizAnswers || {};
+      function val(id) {
+        var el = document.getElementById(id);
+        return el ? el.value : '';
+      }
+      post({
+        type: 'lead',
+        source: 'Quiz result (Plan My Celebration)',
+        name: val('qr-name'),
+        email: val('qr-email'),
+        phone: val('qr-phone'),
+        occasion: qa.occasion || '',
+        vibe: qa.vibe || '',
+        guests: qa.guests || '',
+        date: qa.date || '',
+        location: qa.location || '',
+        budget: qa.budget || ''
+      }, form.querySelector('button[type="submit"]'), 'Sent. We will respond within 24 hours.');
+    });
+
+    /* 3. Vendor application form */
     var vendorForm = document.querySelector('form.formbox#vendorForm') ||
                      (document.getElementById('vf-company') ?
                       document.getElementById('vf-company').closest('form') : null);
