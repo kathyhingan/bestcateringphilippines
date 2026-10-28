@@ -7,6 +7,13 @@
 (function () {
   'use strict';
 
+  /* DEPLOYMENT LOCK (2026-10-29): this v3 deployment ID is the ONLY valid
+     endpoint. The older v1 deployment (AKfycbxnO-sSHIiuORB328XKVdWvQKKE0h7gquu
+     EhJ-eyiUOL8bs5RtftusnB6qlNUPdbZTK) still runs the stale pre-email/phone
+     split code with the old column layout: a 2026-10-29 probe through it
+     landed a SHIFTED row in the Leads tab. Never repoint ENDPOINT_URL to v1
+     or any other deployment ID. If this exec URL ever has to change, first
+     re-verify end to end that a test submit lands column-correct in Leads. */
   var ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbwFMbF_6dEDY8IDjrLB1ZkCRgfvzshCJOJEfzD77M5y2g9zfYFgyU6r5u1Xp-npY0_u/exec';
 
   function post(payload, btn, successMsg) {
